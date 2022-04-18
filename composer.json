@@ -14,5 +14,8 @@
         "psr-4": {
             "webolc\\chain\\": "src"
         }
+    },
+    "require": {
+        "chain33-sdk-php/chain33": "*"
     }
 }
