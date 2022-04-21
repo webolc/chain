@@ -2,6 +2,7 @@
 namespace webolc\chain;
 
 class client{
+    use system,wallet;
     
     /**
      * 配置数据
@@ -21,26 +22,6 @@ class client{
     }
     
     /**
-     * 获取远程节点列表
-     * @return array
-     */
-    public function getPeerInfo()
-    {
-        $method = 'Chain33.GetPeerInfo';
-        return $this->sendRequest($method);
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /**
      * @param string $method
      * @param array $params
      * @return array
@@ -49,7 +30,7 @@ class client{
     {
         $id = time();
         try {
-            $curl = new Curl($this->config);
+            $curl = new curl($this->config);
             $data = [
                 'id' => $id,
                 "jsonrpc" => "2.0",

@@ -3,9 +3,9 @@ namespace webolc\chain;
 
 
 /**
- * CUrl助手模型
+ * curl助手模型
  */
-class Curl
+class curl
 {
 	public $data = null;
 	public $timeout = null;
