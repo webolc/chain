@@ -2,13 +2,11 @@
 namespace webolc\chain;
 
 class client{
-    use system,wallet;
-    
     /**
      * 配置数据
      * @var array
      */
-    protected $config = [
+    private $config = [
         'host' => '127.0.0.1',
         'port' => '8801',
         'timeout' => 60
@@ -26,7 +24,7 @@ class client{
      * @param array $params
      * @return array
      */
-    private function sendRequest(string $method,$params = [])
+    public function sendRequest(string $method,$params = [])
     {
         $id = time();
         try {
@@ -49,6 +47,3 @@ class client{
         return $res;
     }
 }
-
-
-

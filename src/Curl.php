@@ -1,7 +1,6 @@
 <?php
 namespace webolc\chain;
 
-
 /**
  * curl助手模型
  */
