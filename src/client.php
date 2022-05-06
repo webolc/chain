@@ -1,6 +1,9 @@
 <?php
 namespace webolc\chain;
 
+use webolc\chain\rsa\PrivateKey;
+use webolc\chain\rsa\AddressCodec;
+
 class client{
     /**
      * 配置数据
@@ -11,6 +14,11 @@ class client{
         'port' => '8801',
         'timeout' => 60
     ];
+    /**
+     * 私钥
+     * @var unknown
+     */
+    private static $private_key;
     
     /**
      * 初始化
@@ -45,5 +53,37 @@ class client{
         }
         unset($res['id']);
         return $res;
+    }
+    /**
+     * 获取私钥
+     * @return String
+     */
+    public function getPrivateKey(){
+        $PrivateKey = new PrivateKey();
+        self::$private_key = $PrivateKey->getPrivateKey();
+        return self::$private_key;
+    }
+    /**
+     * 获取公钥
+     * @return String
+     */
+    public static function getPublicKey()
+    {
+        $PrivateKey = new PrivateKey(self::$private_key);
+        $point = $PrivateKey->getPubKeyPoints();
+        return AddressCodec::Compress($point);
+    }
+    /**
+     * 从私钥中导出地址
+     * @param $private_key
+     * @return String
+     */
+    public static function getAddress($private_key)
+    {
+        $PrivateKey = new PrivateKey($private_key);
+        $point = $PrivateKey->getPubKeyPoints();
+        $compressedPublicKey = AddressCodec::Compress($point);
+        $hash = AddressCodec::Hash($compressedPublicKey);
+        return AddressCodec::Encode($hash);
     }
 }
